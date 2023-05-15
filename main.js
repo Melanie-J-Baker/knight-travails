@@ -35,7 +35,6 @@ function knightMoves([x, y], [a, b]) {
     });
 }
 
-// 2. Treat all possible moves the knight could make as children in a tree. Do not allow any moves to go off the board.
 const getMoves = (location) => {
     const moves = [];
     moves.push([location.position[0] + 1, location.position[1] - 2]);
@@ -51,11 +50,3 @@ const getMoves = (location) => {
 
 knightMoves([0,0], [1,2]);
 knightMoves([3,3], [4,3]);
-
-// 4. Use the chosen search algorithm to find the shortest path between the starting square (or node) and the ending square. Output what that full path looks like, e.g.:
-// > knightMoves([3,3],[4,3])
-// => You made it in 3 moves!  Here's your path:
-//    [3,3]
-//    [4,5]
-//    [2,4]
-//    [4,3]
