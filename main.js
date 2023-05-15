@@ -7,7 +7,8 @@
 // knightMoves([0,0],[3,3]) == [[0,0],[1,2],[3,3]]
 // knightMoves([3,3],[0,0]) == [[3,3],[1,2],[0,0]]
 
-// 1. Put together a script that creates a game board and a knight.
+//1. Put together a script that creates a game board and a knight. 
+//Breadth-first search is best for finding shortest path
 const knightMoves = (start, end) => {
     const board = {};
     board[start] = 0;
@@ -22,9 +23,14 @@ const knightMoves = (start, end) => {
             board[move] = board[location] + 1;
         });
     }
+    console.log(`=> You made it in ${moves.length} moves! Here's your path: \n`);
+    moves.forEach((value) => {
+        console.log(`[${value}] \n`)
+    });
     return board[end];
 };
 
+// 2. Treat all possible moves the knight could make as children in a tree. Do not allow any moves to go off the board.
 const getMoves = (location) => {
     const moves = [];
     moves.push([location[0] + 1, location[1] - 2]);
@@ -38,9 +44,14 @@ const getMoves = (location) => {
     return moves;
 }
 
-// 2. Treat all possible moves the knight could make as children in a tree. Do not allow any moves to go off the board.
+// Filters next move to pnly be valid moves
+const checkMoves = (moves) => {
+    return moves.filter(move => {
+        return move[0] >= 1 && move[0] <= 8 && move[1] >= 1 && move[1] <= 8;
+    });
+};
 
-// 3. Decide which search algorithm (DFS or BFS) is best to use for this case. Hint: one of them could be a potentially infinite series.
+knightMoves([0,0], [1,2]);
 
 // 4. Use the chosen search algorithm to find the shortest path between the starting square (or node) and the ending square. Output what that full path looks like, e.g.:
 // > knightMoves([3,3],[4,3])
