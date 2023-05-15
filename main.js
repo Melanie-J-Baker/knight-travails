@@ -9,49 +9,48 @@
 
 //1. Put together a script that creates a game board and a knight. 
 //Breadth-first search is best for finding shortest path
-const knightMoves = (start, end) => {
-    const board = {};
-    board[start] = 0;
-    const queue = [start];
-    while(!(queue[0][0] === end[0] && queue[0][1] === end[1])) {
-        const location = queue.shift();
-        const moves = checkMoves(getMoves(location));
-        moves.forEach(move => {
-            // Add next move to end of queue
-            queue.push(move);
-            // Add new square to board position and add one to move count
-            board[move] = board[location] + 1;
-        });
+function Node(position, path) {
+    if (position[0] < 0 || position[0] > 7 || position[1] < 0 || position[1] > 7) {
+        return null;
     }
-    console.log(`=> You made it in ${moves.length} moves! Here's your path: \n`);
-    moves.forEach((value) => {
-        console.log(`[${value}] \n`)
+    return { position, path };
+}
+
+function knightMoves([x, y], [a, b]) {
+    let queue = [Node([x, y], [[x, y]])];
+    let location = queue.shift();
+    while (location.position[0] !== a || location.position[1] !== b) {
+        let moves = getMoves(location);
+        moves.forEach((move) => {
+            let node = Node(move, location.path.concat([move]));
+            if (node) {
+                queue.push(node);
+            }
+        });
+        location = queue.shift();
+    }
+    console.log(`=> You made it in ${location.path.length - 1} moves! Here's your path:`);
+    location.path.forEach((position) => {
+        console.log(position);
     });
-    return board[end];
-};
+}
 
 // 2. Treat all possible moves the knight could make as children in a tree. Do not allow any moves to go off the board.
 const getMoves = (location) => {
     const moves = [];
-    moves.push([location[0] + 1, location[1] - 2]);
-    moves.push([location[0] + 1, location[1] + 2]);
-    moves.push([location[0] - 1, location[1] - 2]);
-    moves.push([location[0] - 1, location[1] + 2]);
-    moves.push([location[0] + 2, location[1] - 1]);
-    moves.push([location[0] + 2, location[1] + 1]);
-    moves.push([location[0] - 2, location[1] - 1]);
-    moves.push([location[0] - 2, location[1] + 1]);
+    moves.push([location.position[0] + 1, location.position[1] - 2]);
+    moves.push([location.position[0] + 1, location.position[1] + 2]);
+    moves.push([location.position[0] - 1, location.position[1] - 2]);
+    moves.push([location.position[0] - 1, location.position[1] + 2]);
+    moves.push([location.position[0] + 2, location.position[1] - 1]);
+    moves.push([location.position[0] + 2, location.position[1] + 1]);
+    moves.push([location.position[0] - 2, location.position[1] - 1]);
+    moves.push([location.position[0] - 2, location.position[1] + 1]);
     return moves;
 }
 
-// Filters next move to pnly be valid moves
-const checkMoves = (moves) => {
-    return moves.filter(move => {
-        return move[0] >= 1 && move[0] <= 8 && move[1] >= 1 && move[1] <= 8;
-    });
-};
-
 knightMoves([0,0], [1,2]);
+knightMoves([3,3], [4,3]);
 
 // 4. Use the chosen search algorithm to find the shortest path between the starting square (or node) and the ending square. Output what that full path looks like, e.g.:
 // > knightMoves([3,3],[4,3])
