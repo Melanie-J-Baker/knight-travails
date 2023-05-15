@@ -27,14 +27,14 @@ const knightMoves = (start, end) => {
 
 const getMoves = (location) => {
     const moves = [];
-    moves.push([loc[0] + 1, loc[1] - 2]);
-    moves.push([loc[0] + 1, loc[1] + 2]);
-    moves.push([loc[0] - 1, loc[1] - 2]);
-    moves.push([loc[0] - 1, loc[1] + 2]);
-    moves.push([loc[0] + 2, loc[1] - 1]);
-    moves.push([loc[0] + 2, loc[1] + 1]);
-    moves.push([loc[0] - 2, loc[1] - 1]);
-    moves.push([loc[0] - 2, loc[1] + 1]);
+    moves.push([location[0] + 1, location[1] - 2]);
+    moves.push([location[0] + 1, location[1] + 2]);
+    moves.push([location[0] - 1, location[1] - 2]);
+    moves.push([location[0] - 1, location[1] + 2]);
+    moves.push([location[0] + 2, location[1] - 1]);
+    moves.push([location[0] + 2, location[1] + 1]);
+    moves.push([location[0] - 2, location[1] - 1]);
+    moves.push([location[0] - 2, location[1] + 1]);
     return moves;
 }
 
