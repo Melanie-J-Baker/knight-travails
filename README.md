@@ -1,4 +1,6 @@
-# knight-travails - assignment for the Odin Project
+# knight-travails
+
+Created as part of the Odin Project: https://www.theodinproject.com/lessons/javascript-knights-travails
 
 Using depth-first and breadth-first search algorithms on a real problem. Use a data structure that’s similar (but not identical) to a binary tree. 
 
